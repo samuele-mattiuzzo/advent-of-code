@@ -1,10 +1,8 @@
 #!/usr/bin/python
 
-
 INPUT = 'input.txt'
 MODE = 'r'
 
-def sum_calories(): pass
 
 if __name__ == "__main__":
     all_totals = []
