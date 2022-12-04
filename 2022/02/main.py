@@ -7,29 +7,32 @@ LOSS = 0
 DRAW = 3
 WIN = 6
 
-SHAPES = {    
-    'X': 1,  # rock
-    'Y': 2,  # paper
-    'Z': 3,  # scissor
-    'A': 1,  # rock
-    'B': 2,  # paper
-    'C': 3   # scissor
+ROCK = 'A'
+PAPER = 'B'
+SCISSORS = 'C'
+SHAPES_AND_SCORES = {
+    ROCK: 1,
+    PAPER: 2,
+    SCISSORS: 3,
+    'X': LOSS,
+    'Y': DRAW,
+    'Z': WIN
 }
-
-WINS = ['CX', 'AY', 'BZ']
-DRAWS = ['AX', 'BY', 'CZ']
 
 player_score = 0
 
-def round_scores(opp, pl):
+def round_scores(opp, result):
     global player_score
-    move = opp + pl
-    if move in DRAWS:
-        player_score += SHAPES[pl] + DRAW
-    elif move in WINS: 
-        player_score += SHAPES[pl] + WIN
-    else:
-        player_score += SHAPES[pl] + LOSS
+    opp_pt = SHAPES_AND_SCORES[opp]
+    pl_pt = 0
+    if result == 'Y':  # draw
+        pl_pt = opp_pt
+    elif result == 'Z':  # victory
+        pl_pt = (opp_pt + 1) if opp_pt in [1, 2] else 1
+    else:  # loss
+        pl_pt = (opp_pt - 1) if opp_pt in [2, 3] else 3
+    player_score += SHAPES_AND_SCORES[result]
+    player_score += pl_pt
 
 
 if __name__ == "__main__":
@@ -38,8 +41,8 @@ if __name__ == "__main__":
         file_contents = input_file.read().split('\n')
         for round in file_contents:
             if round != '':
-                opp, pl = round.split(' ')
-                round_scores(opp, pl)
+                opp, result = round.split(' ')
+                round_scores(opp, result)
 
     # part 1
     print(player_score)
