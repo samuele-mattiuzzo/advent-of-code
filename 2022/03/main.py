@@ -18,7 +18,6 @@ if __name__ == "__main__":
 
             total += sum([(ITEMS.index(common) + 1) for common in commons])
 
-    # part 1
     print(total)
 
     print(input_file.closed)
