@@ -44,7 +44,6 @@ if __name__ == "__main__":
                 opp, result = round.split(' ')
                 round_scores(opp, result)
 
-    # part 1
     print(player_score)
 
     print(input_file.closed)
