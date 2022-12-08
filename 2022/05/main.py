@@ -21,8 +21,9 @@ def parse_instruction(instruction):
     num, start, target = [int(i) for i in instruction.split(' ') if i.isdigit()]
     return num, start, target
 
-def part_one_total(input_file):
+def get_mover_result(input_file, reverse=True):
     instructions = input_file.read().split('\n')
+    reverse_idx = -1 if reverse else 1
 
     for instruction in instructions[:-1]:
         # read and parse the instruction line
@@ -31,7 +32,7 @@ def part_one_total(input_file):
         tmp = stacks[start][-num:]
         stacks[start] = stacks[start][:-num]
         # add in reverse (top to bottom) to the target stack
-        stacks[target] = stacks[target] + tmp[::-1]
+        stacks[target] = stacks[target] + tmp[::reverse_idx]
     
     tot = ''
     for itm in range(1,10):
@@ -39,18 +40,15 @@ def part_one_total(input_file):
 
     return tot
 
-def part_two_total(input_file):
-    file_contents = input_file.read().split('\n')
-    return
 
 if __name__ == "__main__":
     total = 0
     with open(INPUT, MODE) as input_file:
         # part 1
-        total = part_one_total(input_file)
+        # total = get_mover_result(input_file)
 
         # part 2
-        # total = part_two_total(input_file)
+        total = get_mover_result(input_file, False)
 
 
     print(total)
